@@ -1,0 +1,11 @@
+<%= form_for @place, :html => {:multipart => true} do |f| %>
+	<%= f.label :name %><br/>
+	<%= f.text_field :name %><br/>
+
+	<%= f.label :description %><br/>
+	<%= f.text_field :description %><br/>
+
+	<%= f.file_field :image %></br>
+
+	<%= f.submit %>
+<% end %> 

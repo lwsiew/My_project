@@ -1,0 +1,7 @@
+<%= form_for @user, :html => {:multipart => true} do |f| %>
+
+  <%= f.file_field :profile_pic %>
+
+  <%= f.submit %>
+
+<% end %>
