@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :session, only: [:create]
   resources :places
   resources :users
+  resources :admin, only: [:index]
 
   root 'welcome#index'
   post "/bookmarks" => "places#bookmark", as: "bookmark_create"

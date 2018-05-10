@@ -1,2 +1,10 @@
-<h1>Welcome#index</h1>
+<h1>Where to get your food</h1>
+
+<h2>Lastest attraction</h2></br>
+<%= image_tag @place.image_url.to_s %></br>
+<%= link_to @place.name, place_path(@place) %></br>
+<% @review.each do |review| %>
+	<%= review.description %></br>
+<% end %>
+
 

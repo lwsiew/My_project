@@ -9,5 +9,7 @@
 	Post your review</br>
 	<%= review.text_field :description, :size => 150 %>
 
-	<%= review.submit "Post review" %>
+	<%= review.submit "Post review" %></br>
 <% end %>
+
+<%= image_tag "https://maps.googleapis.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@place.latitude}%2C#{@place.longitude}&key=AIzaSyCUYA74cmwqy-aQB3qfGDEZLLOYtMGLXhk" %>

@@ -62,3 +62,11 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'carrierwave'
+
+gem 'geocoder'
+
+gem 'figaro'
+
+gem 'jquery-rails'
+
+gem 'will_paginate', '~> 3.1.0'

@@ -1,7 +1,9 @@
 class PlacesController < ApplicationController
+	before_action :check_user
+	before_action :check_admin
 
 	def index
-		@places = Place.all
+		@places = Place.all.paginate(:page => params[:page], :per_page =>2)
 	end
 
 	def show
@@ -21,6 +23,12 @@ class PlacesController < ApplicationController
 		else
 		    render "new"
 		end
+	end
+
+	def destroy
+		@place = Place.find(params[place.id])
+		@place.destroy	
+		redirect_to admin_index_path
 	end
 
 	def bookmark		
@@ -52,7 +60,7 @@ class PlacesController < ApplicationController
 	end
 
 	def search
-		
+		@places = Place.all
 		if params[:search]
 		  @places = Place.search(params[:search]).order("created_at DESC")
 		else
@@ -63,10 +71,23 @@ class PlacesController < ApplicationController
 	private 
 
 	def new_params
-		params.require(:place).permit(:name, :description, :image)
+		params.require(:place).permit(:name, :description, :image, :address, :latitude, :longtitude)
 	end
 
 	def review_params
 		params.require(:review).permit(:place_id, :user_id, :description)
+	end
+
+	def check_user
+		if !current_user
+			flash[:notice] = "Sorry, please sign in to continue!"
+			redirect_to sign_in_path
+		end 
+	end
+
+	def check_admin
+		if current_user.admin
+			redirect_to admin_index_path
+		end
 	end
 end
