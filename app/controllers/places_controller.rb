@@ -6,6 +6,8 @@ class PlacesController < ApplicationController
 
 	def show
 		@place = Place.find(params[:id])
+		@review = Review.new
+		@show_review = Review.where(place_id: @place.id)
 	end
 
 	def new
@@ -34,9 +36,37 @@ class PlacesController < ApplicationController
 			end
 		end
 	end
+
+	def review
+
+	 	@user = current_user
+	 	@place = Place.find(params[:place_id])
+	 	@review = Review.new(review_params)
+	 	@review.user_id = current_user.id
+	 	@review.place_id =@place.id
+	 		if @review.save
+				redirect_to user_path(current_user.id)
+			else
+				redirect_to root_path
+			end
+	end
+
+	def search
+		
+		if params[:search]
+		  @places = Place.search(params[:search]).order("created_at DESC")
+		else
+		@places = Place.all.order("created_at DESC")
+		end	
+	end
+
 	private 
 
 	def new_params
 		params.require(:place).permit(:name, :description, :image)
+	end
+
+	def review_params
+		params.require(:review).permit(:place_id, :user_id, :description)
 	end
 end
